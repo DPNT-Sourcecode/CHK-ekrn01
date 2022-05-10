@@ -31,6 +31,7 @@ def checkout(skus):
     sorted_skus = sorted(skus)
     counted_skus = [[sorted_skus.count(i), i] for i in set(sorted_skus)]
     total = 0
+    offers = []
     for count, sku in counted_skus:
         if sku not in price_table:
             return -1
@@ -49,6 +50,9 @@ def checkout(skus):
                         special_count = count // quantity
                         count -= special_count * quantity
                         total += special_count * price
+            if "offer" in specials:
+                # the offer should be applied once all the reductions are applied
+                offers.append(specials["offer"])
         total += count * price_table[sku]["price"]
 
 
@@ -56,6 +60,7 @@ def checkout(skus):
 
 
 # print(checkout('ABACADA'))
+
 
 
 
