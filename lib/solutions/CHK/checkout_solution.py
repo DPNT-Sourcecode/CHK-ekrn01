@@ -12,10 +12,8 @@ price_table = {
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    return -1
-    # for sku in skus:
-    #     if sku not in price_table:
-    #         return -1
-    #     total = 0
+    sorted_skus = sorted(skus)
+    counted_skus = [[sorted_skus.count(i), i] for i in set(sorted_skus)]
         
+
 
