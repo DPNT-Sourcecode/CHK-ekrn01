@@ -14,6 +14,16 @@ price_table = {
 def checkout(skus):
     sorted_skus = sorted(skus)
     counted_skus = [[sorted_skus.count(i), i] for i in set(sorted_skus)]
+    total = 0
+    for count, sku in counted_skus:
+        if sku not in price_table:
+            return -1
+        if 'special' in price_table[sku]:
+            if price_table[sku]['special']['quantity'] <= count:
+                special_count = count // price_table[sku]['special']['quantity']
+                total += price_table[sku]['special']['price'] * special_count
+
         
+
 
 
