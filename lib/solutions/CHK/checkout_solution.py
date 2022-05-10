@@ -26,7 +26,9 @@ price_table = {
 }
 
 def get_reductions_total_price(count, sku):
-    reductions = specials["reductions"]
+    reductions = price_table[sku]["specials"]["reductions"]
+    reductions_total_price = 0
+    reduction_item_count = 0
     # reductions have to be applied in order from the most items to the least
     sorted_reductions = sorted(reductions, key=lambda x: x["quantity"])
     for reduction in sorted_reductions:
@@ -38,28 +40,23 @@ def get_reductions_total_price(count, sku):
             special_count = count // quantity
             count -= special_count * quantity
             total += special_count * price
+    return reductions_total_price, reduction_items_count
 
 
 # CHK_2 more complex special offers
 def checkout(skus):
     sorted_skus = sorted(skus)
-    counted_skus = [[sorted_skus.count(i), i] for i in set(sorted_skus)]
+    counted_skus = {i:sorted_skus.count(i) for i in set(sorted_skus)}
     total = 0
-    offers = []
-    for count, sku in counted_skus:
+    for sku, count in counted_skus.items():
         if sku not in price_table:
             return -1
+        count_after_reductions = count
         if "specials" in price_table[sku]:
             specials = price_table[sku]["specials"]
             if "reductions" in specials:
-                
-            if "offers" in specials:
-                # the offer should be applied once all the reductions are applied
-                offers.append(specials["offers"])
-    for offer in offers:
-        quantity = offer["quantity"]
-        item = offer["item"]
-
-        total += count * price_table[sku]["price"]
+                reductions_total_price, reduction_item_count = get_reductions_total_price(count, sku)
+                total += reductions_total_price
+                count_after_reductions = count - reduction_item_count
 
 
