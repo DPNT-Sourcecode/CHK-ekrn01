@@ -60,9 +60,3 @@ def checkout(skus):
 
 
 # print(checkout('ABACADA'))
-
-
-
-
-
-
