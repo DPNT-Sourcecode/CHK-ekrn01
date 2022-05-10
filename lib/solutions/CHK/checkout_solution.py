@@ -102,11 +102,3 @@ def test_checkout(sku, expected):
 
 
 
-
-
-
-
-
-
-
-
