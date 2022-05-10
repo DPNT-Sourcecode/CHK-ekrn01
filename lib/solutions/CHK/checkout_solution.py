@@ -20,10 +20,24 @@ price_table = {
     "E": {
         "price": 40,
         "specials": {
-            "offer": {"quantity": 3, "item": "B"}
+            "offers": [{"quantity": 3, "item": "B"}]
         }
     }
 }
+
+def get_reductions_total_price(count, sku):
+    reductions = specials["reductions"]
+    # reductions have to be applied in order from the most items to the least
+    sorted_reductions = sorted(reductions, key=lambda x: x["quantity"])
+    for reduction in sorted_reductions:
+        quantity = reduction["quantity"]
+        price = reduction["price"]
+        # the special price is applied if the quantity is greater than or equal to the quantity
+        if quantity <= count:
+            # computes how many times the special price should be applied
+            special_count = count // quantity
+            count -= special_count * quantity
+            total += special_count * price
 
 
 # CHK_2 more complex special offers
@@ -38,25 +52,14 @@ def checkout(skus):
         if "specials" in price_table[sku]:
             specials = price_table[sku]["specials"]
             if "reductions" in specials:
-                reductions = specials["reductions"]
-                # reductions have to be applied in order from the most items to the least
-                sorted_reductions = sorted(reductions, key=lambda x: x["quantity"])
-                for reduction in sorted_reductions:
-                    quantity = reduction["quantity"]
-                    price = reduction["price"]
-                    # the special price is applied if the quantity is greater than or equal to the quantity
-                    if quantity <= count:
-                        # computes how many times the special price should be applied
-                        special_count = count // quantity
-                        count -= special_count * quantity
-                        total += special_count * price
-            if "offer" in specials:
+                
+            if "offers" in specials:
                 # the offer should be applied once all the reductions are applied
-                offers.append(specials["offer"])
+                offers.append(specials["offers"])
+    for offer in offers:
+        quantity = offer["quantity"]
+        item = offer["item"]
+
         total += count * price_table[sku]["price"]
 
 
-
-
-
-# print(checkout('ABACADA'))
