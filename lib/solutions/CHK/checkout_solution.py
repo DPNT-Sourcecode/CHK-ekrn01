@@ -30,7 +30,7 @@ def get_reductions_total_price(count, sku):
     reductions_total_price = 0
     reduction_items_count = 0
     # reductions have to be applied in order from the most items to the least
-    sorted_reductions = sorted(reductions, key=lambda x: x["quantity"])
+    sorted_reductions = sorted(reductions, key=lambda x: x["quantity"], reverse=True)
     for reduction in sorted_reductions:
         quantity = reduction["quantity"]
         price = reduction["price"]
@@ -70,6 +70,19 @@ def checkout(skus):
                         total -= offer_value
         total += count_after_reductions * price_table[sku]["price"]
     return total
+
+
+# def test_checkout(sku, expected):
+#     value = checkout(sku)
+#     print("{} -> {}".format(sku, value))
+#     assert value == expected
+
+# test_checkout("", 0)
+# test_checkout("A", 50)
+# test_checkout("AA", 100)
+# test_checkout("AAA", 130)
+# test_checkout("AAAAA", 200)
+# test_checkout("EEEEEEAAABBD", 370)
 
 
 
