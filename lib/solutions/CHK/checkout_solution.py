@@ -1,9 +1,10 @@
 
 price_table = {
-    'A': { 'price': 50, 'special' : { 'quantity': 3, 'price': 130 } },
-    'B': { 'price': 30, 'special' : { 'quantity': 2, 'price': 45 } },
+    'A': { 'price': 50, 'specials' : [{ 'quantity': 3, 'price': 130 }] },
+    'B': { 'price': 30, 'specials' : [{ 'quantity': 2, 'price': 45 }] },
     'C': { 'price': 20 },
     'D': { 'price': 15 },
+    'E': { 'price': 40, 'specials' : [{ 'quantity': 2, 'free': 'B' }] },
 }
 
 
@@ -33,3 +34,4 @@ def checkout(skus):
 
 
         
+
