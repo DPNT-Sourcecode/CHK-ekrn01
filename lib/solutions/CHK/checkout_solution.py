@@ -16,11 +16,11 @@ price_table = {
     },
     "D": {
         "price": 15
-    }
+    },
     "E": {
         "price": 40,
         "specials": {
-            "offer": {"quantity": 3, "item": "B", "price": 0}
+            "offer": {"quantity": 3, "item": "B"}
         }
     }
 }
@@ -48,5 +48,6 @@ def checkout(skus):
 
 
 # print(checkout('ABACADA'))
+
 
 
