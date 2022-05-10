@@ -22,7 +22,13 @@ price_table = {
         "specials": {
             "offers": [{"quantity": 2, "item": "B"}]
         }
-    }
+    },
+    "F": {
+        "price": 10,
+        "specials": {
+            "offers": [{"quantity": 2, "item": "F"}]
+        }
+    },
 }
 
 def get_reductions_total_price(count, sku):
@@ -98,6 +104,8 @@ def test_checkout(sku, expected):
 # test_checkout("EEB", 80)
 # test_checkout("EEEEBB", 160)
 # test_checkout("BEBEEE", 160)
+test_checkout("FFF", 20)
+
 
 
 
