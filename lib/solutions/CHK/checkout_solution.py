@@ -64,8 +64,10 @@ def remove_offered_items(counted_skus):
             if offer_quantity > count:
                 continue
             if offer_item == sku:
-                if count < offer_quantity + 1:
-                    continue
+                if count > offer_quantity :
+                    counted_skus[sku] -= offer_quantity
+                    count -= offer_quantity + 1 
+
             offer_count = min(count // offer_quantity, counted_skus[offer_item])
             counted_skus[offer_item] -= offer_count
             counted_skus[offer_item] = max(counted_skus[offer_item], 0)
@@ -109,6 +111,9 @@ def test_checkout(sku, expected):
 # test_checkout("EEEEBB", 160)
 # test_checkout("BEBEEE", 160)
 # test_checkout("FFF", 20)
+test_checkout("FFFF", 30)
+test_checkout("FFFFFF", 40)
+
 
 
 
