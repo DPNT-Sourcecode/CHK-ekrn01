@@ -29,10 +29,11 @@ def checkout(skus):
         total += count * price_table[sku]['price']
     return total
 
-checkout('ABACAD')
+# print(checkout('ABACADA'))
 
 
         
+
 
 
 
