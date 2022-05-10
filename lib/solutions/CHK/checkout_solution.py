@@ -42,7 +42,25 @@ def get_reductions_total_price(count, sku):
             reductions_total_price += special_count * price
     return reductions_total_price, reduction_items_count
 
-def remove_offered_items(sku, count):
+def remove_offered_items(counted_skus):
+    for sku, count in counted_skus.items():
+        if sku not in price_table:
+            continue
+        if "specials" not in price_table[sku]:
+            continue
+        if "offers" not in price_table[sku]["specials"]:
+            continue
+        for offer in price_table[sku]["specials"]["offers"]:
+            offer_quantity = offer["quantity"]
+            offer_item = offer["item"]
+            if offer_item not in counted_skus:
+                continue
+            if offer_quantity <= count:
+                offer_count = min(count // offer_quantity, counted_skus[offer_item])
+                counted_skus[offer_item] -= offer_count
+                counted_skus[offer_item] = max(counted_skus[offer_item], 0)
+    return counted_skus
+    
 
 # CHK_2 more complex special offers
 def checkout(skus):
@@ -51,6 +69,7 @@ def checkout(skus):
     sorted_skus = sorted(skus)
     counted_skus = {i:sorted_skus.count(i) for i in set(sorted_skus)}
     total = 0
+    counted_skus = remove_offered_items(counted_skus)
     for sku, count in counted_skus.items():
         if sku not in price_table:
             return -1
@@ -61,14 +80,6 @@ def checkout(skus):
                 reductions_total_price, reduction_item_count = get_reductions_total_price(count, sku)
                 total += reductions_total_price
                 count_after_reductions = count - reduction_item_count
-            if "offers" in specials:
-                for offer in specials["offers"]:
-                    offer_quantity = offer["quantity"]
-                    offer_item = offer["item"]
-                    if offer_quantity <= count:
-                        offer_count = min(count // offer_quantity, counted_skus[offer_item])
-                        offer_value = offer_count * price_table[offer_item]["price"]
-                        total -= offer_value
         total += count_after_reductions * price_table[sku]["price"]
     return total
 
@@ -78,15 +89,16 @@ def test_checkout(sku, expected):
     print("{} -> {}".format(sku, value))
     assert value == expected
 
-# test_checkout("", 0)
-# test_checkout("A", 50)
-# test_checkout("AA", 100)
-# test_checkout("AAA", 130)
-# test_checkout("AAAAA", 200)
-# test_checkout("EEEEEEAAABBD", 370)
+test_checkout("", 0)
+test_checkout("A", 50)
+test_checkout("AA", 100)
+test_checkout("AAA", 130)
+test_checkout("AAAAA", 200)
+test_checkout("EEEEEEAAAD", 370)
 test_checkout("EEB", 80)
 test_checkout("EEEEBB", 160)
 test_checkout("BEBEEE", 160)
+
 
 
 
