@@ -19,11 +19,21 @@ def checkout(skus):
         if sku not in price_table:
             return -1
         if 'special' in price_table[sku]:
-            if price_table[sku]['special']['quantity'] <= count:
-                special_count = count // price_table[sku]['special']['quantity']
-                total += price_table[sku]['special']['price'] * special_count
+            quantity = price_table[sku]['special']['quantity']
+            # the special price is applied if the quantity is greater than or equal to the quantity
+            if quantity <= count:
+                # computes how many times the special price should be applied
+                special_count = count // quantity
+                count -= special_count * quantity
+                total += special_count * price_table[sku]['special']['price']
+        total += count * price_table[sku]['price']
+    return total
+
+checkout('ABACAD')
+
 
         
+
 
 
 
