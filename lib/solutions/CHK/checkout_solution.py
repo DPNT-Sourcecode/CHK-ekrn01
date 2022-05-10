@@ -45,6 +45,8 @@ def get_reductions_total_price(count, sku):
 
 # CHK_2 more complex special offers
 def checkout(skus):
+    if skus == "":
+        return 0
     sorted_skus = sorted(skus)
     counted_skus = {i:sorted_skus.count(i) for i in set(sorted_skus)}
     total = 0
@@ -67,9 +69,10 @@ def checkout(skus):
                         offer_value = offer_count * price_table[offer_item]["price"]
                         total -= offer_value
         total += count_after_reductions * price_table[sku]["price"]
+    return total
 
 
-assert checkout('ABCDE') == 155
+
 
 
 
