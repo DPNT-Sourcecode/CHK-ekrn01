@@ -64,6 +64,87 @@ price_table = {
         "price": 20,
     },
     "H": {
+        "price": 10,
+        "specials": {
+            "reductions": [{"required_quantity": 5, "price": 45}, {"required_quantity": 10, "price": 80}]
+        }
+    },
+    "I": {
+        "price": 35,
+    },
+    "J": {
+        "price": 60,
+    },
+    "K": {
+        "price": 80,
+        "specials": {
+            "reductions": [{"required_quantity": 2, "price": 150}]
+        }
+    },
+    "L": {
+        "price": 90,
+    },
+    "M": {
+        "price": 15,
+    },
+    "N": {
+        "price": 40,
+        "specials": {
+            "offers": [{"required_quantity": 3, "item": "M"}]
+        }
+    },
+    "O": {
+        "price": 10,
+    },
+    "P": {
+        "price": 50,
+        "specials": {
+            "reductions": [{"required_quantity": 5, "price": 200}]
+        }
+    },
+    "Q": {
+        "price": 30,
+        "specials": {
+            "reductions": [{"required_quantity": 3, "price": 80}]
+        }
+    },
+    "R": {
+        "price": 50,
+        "specials": {
+            "offers": [{"required_quantity": 3, "item": "Q"}]
+        }
+    },
+    "S": {
+        "price": 30,
+    },
+    "T": {
+        "price": 20,
+    },
+    "U": {
+        "price": 40,
+        "specials": {
+            "offers": [{"required_quantity": 3, "item": "U"}]
+        }
+    },
+    "V": {
+        "price": 50,
+        "specials": {
+            "reductions": [{"required_quantity": 2, "price": 90}, {"required_quantity": 3, "price": 130}]
+        }
+    },
+    "W": {
+        "price": 20,
+    },
+    "X": {
+        "price": 90,
+    },
+    "Y": {
+        "price": 10,
+    },
+    "Z": {
+        "price": 50,
+    }
+
 }
 
 def get_reductions_total_price(count, sku):
@@ -147,6 +228,7 @@ def test_checkout(sku, expected):
 # test_checkout("FFFF", 30)
 # test_checkout("FFFFFF", 40)
 # test_checkout("FFFFFFFF", 60)
+
 
 
 
