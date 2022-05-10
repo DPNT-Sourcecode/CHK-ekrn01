@@ -2,13 +2,13 @@ price_table = {
     "A": {
         "price": 50,
         "specials": {
-            "reductions": [{"quantity": 3, "price": 130}, {"quantity": 5, "price": 200}]
+            "reductions": [{"required_quantity": 3, "price": 130}, {"required_quantity": 5, "price": 200}]
         },
     },
     "B": {
         "price": 30,
         "specials": {
-            "reductions": [{"quantity": 2, "price": 45}]
+            "reductions": [{"required_quantity": 2, "price": 45}]
         },
     },
     "C": {
@@ -20,13 +20,13 @@ price_table = {
     "E": {
         "price": 40,
         "specials": {
-            "offers": [{"quantity": 2, "item": "B"}]
+            "offers": [{"required_quantity": 2, "item": "B"}]
         }
     },
     "F": {
         "price": 10,
         "specials": {
-            "offers": [{"quantity": 2, "item": "F"}]
+            "offers": [{"required_quantity": 2, "item": "F"}]
         }
     },
 }
@@ -36,9 +36,9 @@ def get_reductions_total_price(count, sku):
     reductions_total_price = 0
     reduction_items_count = 0
     # reductions have to be applied in order from the most items to the least
-    sorted_reductions = sorted(reductions, key=lambda x: x["quantity"], reverse=True)
+    sorted_reductions = sorted(reductions, key=lambda x: x["required_quantity"], reverse=True)
     for reduction in sorted_reductions:
-        quantity = reduction["quantity"]
+        quantity = reduction["required_quantity"]
         price = reduction["price"]
         # the special price is applied if the quantity is greater than or equal to the quantity
         if quantity <= count:
@@ -57,14 +57,18 @@ def remove_offered_items(counted_skus):
         if "offers" not in price_table[sku]["specials"]:
             continue
         for offer in price_table[sku]["specials"]["offers"]:
-            offer_quantity = offer["quantity"]
+            offer_quantity = offer["required_quantity"]
             offer_item = offer["item"]
             if offer_item not in counted_skus:
                 continue
-            if offer_quantity <= count:
-                offer_count = min(count // offer_quantity, counted_skus[offer_item])
-                counted_skus[offer_item] -= offer_count
-                counted_skus[offer_item] = max(counted_skus[offer_item], 0)
+            if offer_quantity > count:
+                continue
+            if offer_item == sku:
+                if count <= offer_quantity + 1:
+                    continue
+            offer_count = min(count // offer_quantity, counted_skus[offer_item])
+            counted_skus[offer_item] -= offer_count
+            counted_skus[offer_item] = max(counted_skus[offer_item], 0)
     return counted_skus
     
 
@@ -105,6 +109,7 @@ def test_checkout(sku, expected):
 # test_checkout("EEEEBB", 160)
 # test_checkout("BEBEEE", 160)
 test_checkout("FFF", 20)
+
 
 
 
