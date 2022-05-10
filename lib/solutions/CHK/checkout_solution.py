@@ -63,10 +63,14 @@ def checkout(skus):
                     offer_quantity = offer["quantity"]
                     offer_item = offer["item"]
                     if offer_quantity <= count:
-                        # the offer shouldn't be applied if the offer quantity is greater than the count
                         offer_count = min(count // offer_quantity, counted_skus[offer_item])
                         offer_value = offer_count * price_table[offer_item]["price"]
                         total -= offer_value
+        total += count_after_reductions * price_table[sku]["price"]
+
+
+assert checkout('ABCDE') == 155
+
 
 
 
