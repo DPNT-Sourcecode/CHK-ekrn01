@@ -28,7 +28,7 @@ price_table = {
 def get_reductions_total_price(count, sku):
     reductions = price_table[sku]["specials"]["reductions"]
     reductions_total_price = 0
-    reduction_item_count = 0
+    reduction_items_count = 0
     # reductions have to be applied in order from the most items to the least
     sorted_reductions = sorted(reductions, key=lambda x: x["quantity"])
     for reduction in sorted_reductions:
@@ -36,10 +36,10 @@ def get_reductions_total_price(count, sku):
         price = reduction["price"]
         # the special price is applied if the quantity is greater than or equal to the quantity
         if quantity <= count:
-            # computes how many times the special price should be applied
             special_count = count // quantity
+            reduction_items_count += special_count * quantity
             count -= special_count * quantity
-            total += special_count * price
+            reductions_total_price += special_count * price
     return reductions_total_price, reduction_items_count
 
 
@@ -58,5 +58,15 @@ def checkout(skus):
                 reductions_total_price, reduction_item_count = get_reductions_total_price(count, sku)
                 total += reductions_total_price
                 count_after_reductions = count - reduction_item_count
+            if "offers" in specials:
+                for offer in specials["offers"]:
+                    offer_quantity = offer["quantity"]
+                    offer_item = offer["item"]
+                    if offer_quantity <= count:
+                        # the offer shouldn't be applied if the offer quantity is greater than the count
+                        offer_count = min(count // offer_quantity, counted_skus[offer_item])
+                        offer_value = offer_count * price_table[offer_item]["price"]
+                        total -= offer_value
+
 
 
