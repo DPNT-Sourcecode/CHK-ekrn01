@@ -28,6 +28,26 @@ price_table = {
 
 # noinspection PyUnusedLocal
 # skus = unicode string
+# CHK_1 simple special offers
+# def checkout(skus):
+#     sorted_skus = sorted(skus)
+#     counted_skus = [[sorted_skus.count(i), i] for i in set(sorted_skus)]
+#     total = 0
+#     for count, sku in counted_skus:
+#         if sku not in price_table:
+#             return -1
+#         if "special" in price_table[sku]:
+#             quantity = price_table[sku]["special"]["quantity"]
+#             # the special price is applied if the quantity is greater than or equal to the quantity
+#             if quantity <= count:
+#                 # computes how many times the special price should be applied
+#                 special_count = count // quantity
+#                 count -= special_count * quantity
+#                 total += special_count * price_table[sku]["special"]["price"]
+#         total += count * price_table[sku]["price"]
+#     return total
+
+# CHK_2 more complex special offers
 def checkout(skus):
     sorted_skus = sorted(skus)
     counted_skus = [[sorted_skus.count(i), i] for i in set(sorted_skus)]
@@ -35,19 +55,18 @@ def checkout(skus):
     for count, sku in counted_skus:
         if sku not in price_table:
             return -1
-        if "special" in price_table[sku]:
-            quantity = price_table[sku]["special"]["quantity"]
-            # the special price is applied if the quantity is greater than or equal to the quantity
-            if quantity <= count:
-                # computes how many times the special price should be applied
-                special_count = count // quantity
-                count -= special_count * quantity
-                total += special_count * price_table[sku]["special"]["price"]
-        total += count * price_table[sku]["price"]
-    return total
+        if "specials" in price_table[sku]:
+            specials = price_table[sku]["specials"]
+            if "reductions" in specials:
+                reductions = specials["reductions"]
+                # reductions have to be applied in order from the most items to the least
+
+
+
 
 
 # print(checkout('ABACADA'))
+
 
 
 
