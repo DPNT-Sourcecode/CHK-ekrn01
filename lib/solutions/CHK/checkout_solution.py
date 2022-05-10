@@ -42,6 +42,7 @@ def get_reductions_total_price(count, sku):
             reductions_total_price += special_count * price
     return reductions_total_price, reduction_items_count
 
+def remove_offered_items(sku, count):
 
 # CHK_2 more complex special offers
 def checkout(skus):
@@ -86,6 +87,7 @@ def test_checkout(sku, expected):
 test_checkout("EEB", 80)
 test_checkout("EEEEBB", 160)
 test_checkout("BEBEEE", 160)
+
 
 
 
