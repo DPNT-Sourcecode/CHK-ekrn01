@@ -253,6 +253,7 @@ def remove_group_reductions_get_price(counted_skus):
         items_to_remove = (total_skus_count // required_quantity) * required_quantity
         # sku's should be sorted from most expensive to least since the policy of the shop is to make the client pay the least amount
         skus = sort_skus_by_price(skus)
+        print(skus)
         for sku, count in skus.items():
             if items_to_remove <= 0 or count <= 0:
                 counted_skus[sku] += skus[sku]
@@ -265,6 +266,7 @@ def remove_group_reductions_get_price(counted_skus):
                 items_to_remove = 0
             counted_skus[sku] -= skus[sku]
         total_price += (total_skus_count // required_quantity) * price
+    print(total_price, counted_skus)
     return total_price, counted_skus
 
 
@@ -299,22 +301,23 @@ def test_checkout(sku, expected):
     assert value == expected
 
 
-test_checkout("", 0)
-test_checkout("A", 50)
-test_checkout("AA", 100)
-test_checkout("AAA", 130)
-test_checkout("AAAAA", 200)
-test_checkout("EEEEEEAAAD", 385)
-test_checkout("EEB", 80)
-test_checkout("EEEEBB", 160)
-test_checkout("BEBEEE", 160)
-test_checkout("FFF", 20)
-test_checkout("FFFF", 30)
-test_checkout("FFFFFF", 40)
-test_checkout("FFFFFFFF", 60)
+# test_checkout("", 0)
+# test_checkout("A", 50)
+# test_checkout("AA", 100)
+# test_checkout("AAA", 130)
+# test_checkout("AAAAA", 200)
+# test_checkout("EEEEEEAAAD", 385)
+# test_checkout("EEB", 80)
+# test_checkout("EEEEBB", 160)
+# test_checkout("BEBEEE", 160)
+# test_checkout("FFF", 20)
+# test_checkout("FFFF", 30)
+# test_checkout("FFFFFF", 40)
+# test_checkout("FFFFFFFF", 60)
 test_checkout("XYZX", 55)
-test_checkout("XYZYSTU", 130)
-test_checkout("XYZYSTUAAAFFF", 280)
+# test_checkout("XYZYSTU", 130)
+# test_checkout("XYZYSTUAAAFFF", 280)
+
 
 
 
