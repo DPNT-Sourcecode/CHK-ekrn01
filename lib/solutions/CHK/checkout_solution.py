@@ -243,7 +243,7 @@ def remove_group_reductions_get_price(counted_skus):
     total_price = 0
     # first finding the different group reductions that can be applied
     group_reductions = index_group_reductions(counted_skus)
-    for group_reduction in group_reductions:
+    for group_reduction in group_reductions.values():
         required_quantity = group_reduction["required_quantity"]
         price = group_reduction["price"]
         skus = group_reduction["skus"]
@@ -251,6 +251,8 @@ def remove_group_reductions_get_price(counted_skus):
         for sku, count in skus.items():
             total_skus_count += count
         items_to_remove = (total_skus_count // required_quantity) * required_quantity
+        # sku's should be sorted from most expensive to least since the policy of the shop is to make the client pay the least amount
+        skus = sort_skus_by_price(skus)
         for sku, count in skus.items():
             if items_to_remove <= 0 or count <= 0:
                 counted_skus[sku] += skus[sku]
@@ -313,6 +315,7 @@ test_checkout("FFFFFFFF", 60)
 test_checkout("XYZX", 55)
 test_checkout("XYZYSTU", 130)
 test_checkout("XYZYSTUAAAFFF", 280)
+
 
 
 
