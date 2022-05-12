@@ -30,10 +30,6 @@
 | Z    | 21    | buy any 3 of (S,T,X,Y,Z) for 45 |
 +------+-------+---------------------------------+
 """
-
-from cgi import test
-
-
 price_table = {
     "A": {
         "price": 50,
@@ -71,7 +67,7 @@ price_table = {
         "price": 60,
     },
     "K": {
-        "price": 80,
+        "price": 70,
         "specials": {"reductions": [{"required_quantity": 2, "price": 150}]},
     },
     "L": {
@@ -94,7 +90,7 @@ price_table = {
     },
     "R": {"price": 50, "specials": {"offers": [{"required_quantity": 3, "item": "Q"}]}},
     "S": {
-        "price": 30,
+        "price": 20,
         "specials": {
             "group_reduction": {
                 "group": ["S", "T", "X", "Y", "Z"],
@@ -127,7 +123,7 @@ price_table = {
         "price": 20,
     },
     "X": {
-        "price": 90,
+        "price": 17,
         "specials": {
             "group_reduction": {
                 "group": ["S", "T", "X", "Y", "Z"],
@@ -315,3 +311,4 @@ def test_checkout(sku, expected):
 # test_checkout("XYZX", 55)
 # test_checkout("XYZYSTU", 130)
 # test_checkout("XYZYSTUAAAFFF", 280)
+
