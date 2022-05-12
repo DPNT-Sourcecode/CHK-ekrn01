@@ -68,7 +68,7 @@ price_table = {
     },
     "K": {
         "price": 70,
-        "specials": {"reductions": [{"required_quantity": 2, "price": 150}]},
+        "specials": {"reductions": [{"required_quantity": 2, "price": 120}]},
     },
     "L": {
         "price": 90,
@@ -313,5 +313,6 @@ def test_checkout(sku, expected):
 # test_checkout("XYZYSTU", 130)
 # test_checkout("XYZYSTUAAAFFF", 280)
 # test_checkout("ABCDEFGHIJKLMNOPQRSTUVW", 795)
+
 
 
