@@ -207,10 +207,30 @@ def remove_offered_items(counted_skus):
             counted_skus[offer_item] = max(counted_skus[offer_item], 0)
     return counted_skus
 
+def index_group_reductions(counted_skus):
+    group_reductions = {}
+    for sku, count in counted_skus.items():
+        if sku not in price_table:
+            continue
+        if "specials" not in price_table[sku]:
+            continue
+        if "group_reduction" not in price_table[sku]["specials"]:
+            continue
+        counted_skus[sku] = 0
+        group_reduction = price_table[sku]["specials"]["group_reduction"]
+        group = group_reduction["group"]
+        # a group is not hashable, so we need to store it as a string
+        group_name = ",".join(group)
+
 def remove_group_reductions_get_price(counted_skus):
     total_price = 0
-    
-    group_reductions = 
+    # first finding the different group reductions that can be applied
+    group_reductions = index_group_reductions(counted_skus)
+    for group_reduction in group_reductions:
+        required_quantity = group_reduction["required_quantity"]
+        price = group_reduction["price"]
+        skus = group_reduction["skus"]
+        pass
     
 
 # CHK_2 more complex special offers
@@ -256,6 +276,7 @@ test_checkout("FFFFFFFF", 60)
 test_checkout("XYZX", 55)
 test_checkout("XYZYSTU", 130)
 test_checkout("XYZYSTUAAAFFF", 280)
+
 
 
 
