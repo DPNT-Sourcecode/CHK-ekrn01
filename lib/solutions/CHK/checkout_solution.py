@@ -31,6 +31,9 @@
 +------+-------+---------------------------------+
 """
 
+from cgi import test
+
+
 price_table = {
     "A": {
         "price": 50,
@@ -124,6 +127,9 @@ price_table = {
     },
     "T": {
         "price": 20,
+        "specials": {
+            "group_reduction": {"group": ["S", "T", "X", "Y", "Z"], "required_quantity": 3, "price": 45}
+        }
     },
     "U": {
         "price": 40,
@@ -142,12 +148,21 @@ price_table = {
     },
     "X": {
         "price": 90,
+        "specials": {
+            "group_reduction": {"group": ["S", "T", "X", "Y", "Z"], "required_quantity": 3, "price": 45}
+        }
     },
     "Y": {
         "price": 10,
+        "specials": {
+            "group_reduction": {"group": ["S", "T", "X", "Y", "Z"], "required_quantity": 3, "price": 45}
+        }
     },
     "Z": {
         "price": 50,
+        "specials": {
+            "group_reduction": {"group": ["S", "T", "X", "Y", "Z"], "required_quantity": 3, "price": 45}
+        }
     }
 
 }
@@ -191,6 +206,11 @@ def remove_offered_items(counted_skus):
             counted_skus[offer_item] -= offer_count
             counted_skus[offer_item] = max(counted_skus[offer_item], 0)
     return counted_skus
+
+def remove_group_reductions_get_price(counted_skus):
+    total_price = 0
+    
+    group_reductions = 
     
 
 # CHK_2 more complex special offers
@@ -199,8 +219,8 @@ def checkout(skus):
         return 0
     sorted_skus = sorted(skus)
     counted_skus = {i:sorted_skus.count(i) for i in set(sorted_skus)}
-    total = 0
     counted_skus = remove_offered_items(counted_skus)
+    total, counted_skus = remove_group_reductions_get_price(counted_skus)
     for sku, count in counted_skus.items():
         if sku not in price_table:
             return -1
@@ -220,19 +240,23 @@ def test_checkout(sku, expected):
     print("{} -> {}".format(sku, value))
     assert value == expected
 
-# test_checkout("", 0)
-# test_checkout("A", 50)
-# test_checkout("AA", 100)
-# test_checkout("AAA", 130)
-# test_checkout("AAAAA", 200)
-# test_checkout("EEEEEEAAAD", 385)
-# test_checkout("EEB", 80)
-# test_checkout("EEEEBB", 160)
-# test_checkout("BEBEEE", 160)
-# test_checkout("FFF", 20)
-# test_checkout("FFFF", 30)
-# test_checkout("FFFFFF", 40)
-# test_checkout("FFFFFFFF", 60)
+test_checkout("", 0)
+test_checkout("A", 50)
+test_checkout("AA", 100)
+test_checkout("AAA", 130)
+test_checkout("AAAAA", 200)
+test_checkout("EEEEEEAAAD", 385)
+test_checkout("EEB", 80)
+test_checkout("EEEEBB", 160)
+test_checkout("BEBEEE", 160)
+test_checkout("FFF", 20)
+test_checkout("FFFF", 30)
+test_checkout("FFFFFF", 40)
+test_checkout("FFFFFFFF", 60)
+test_checkout("XYZX", 55)
+test_checkout("XYZYSTU", 130)
+test_checkout("XYZYSTUAAAFFF", 280)
+
 
 
 
