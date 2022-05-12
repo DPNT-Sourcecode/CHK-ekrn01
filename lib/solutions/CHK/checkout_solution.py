@@ -38,41 +38,31 @@ price_table = {
     "A": {
         "price": 50,
         "specials": {
-            "reductions": [{"required_quantity": 3, "price": 130}, {"required_quantity": 5, "price": 200}]
+            "reductions": [
+                {"required_quantity": 3, "price": 130},
+                {"required_quantity": 5, "price": 200},
+            ]
         },
     },
     "B": {
         "price": 30,
-        "specials": {
-            "reductions": [{"required_quantity": 2, "price": 45}]
-        },
+        "specials": {"reductions": [{"required_quantity": 2, "price": 45}]},
     },
-    "C": {
-        "price": 20
-    },
-    "D": {
-        "price": 15
-    },
-    "E": {
-        "price": 40,
-        "specials": {
-            "offers": [{"required_quantity": 2, "item": "B"}]
-        }
-    },
-    "F": {
-        "price": 10,
-        "specials": {
-            "offers": [{"required_quantity": 2, "item": "F"}]
-        }
-    },
+    "C": {"price": 20},
+    "D": {"price": 15},
+    "E": {"price": 40, "specials": {"offers": [{"required_quantity": 2, "item": "B"}]}},
+    "F": {"price": 10, "specials": {"offers": [{"required_quantity": 2, "item": "F"}]}},
     "G": {
         "price": 20,
     },
     "H": {
         "price": 10,
         "specials": {
-            "reductions": [{"required_quantity": 5, "price": 45}, {"required_quantity": 10, "price": 80}]
-        }
+            "reductions": [
+                {"required_quantity": 5, "price": 45},
+                {"required_quantity": 10, "price": 80},
+            ]
+        },
     },
     "I": {
         "price": 35,
@@ -82,9 +72,7 @@ price_table = {
     },
     "K": {
         "price": 80,
-        "specials": {
-            "reductions": [{"required_quantity": 2, "price": 150}]
-        }
+        "specials": {"reductions": [{"required_quantity": 2, "price": 150}]},
     },
     "L": {
         "price": 90,
@@ -92,56 +80,48 @@ price_table = {
     "M": {
         "price": 15,
     },
-    "N": {
-        "price": 40,
-        "specials": {
-            "offers": [{"required_quantity": 3, "item": "M"}]
-        }
-    },
+    "N": {"price": 40, "specials": {"offers": [{"required_quantity": 3, "item": "M"}]}},
     "O": {
         "price": 10,
     },
     "P": {
         "price": 50,
-        "specials": {
-            "reductions": [{"required_quantity": 5, "price": 200}]
-        }
+        "specials": {"reductions": [{"required_quantity": 5, "price": 200}]},
     },
     "Q": {
         "price": 30,
-        "specials": {
-            "reductions": [{"required_quantity": 3, "price": 80}]
-        }
+        "specials": {"reductions": [{"required_quantity": 3, "price": 80}]},
     },
-    "R": {
-        "price": 50,
-        "specials": {
-            "offers": [{"required_quantity": 3, "item": "Q"}]
-        }
-    },
+    "R": {"price": 50, "specials": {"offers": [{"required_quantity": 3, "item": "Q"}]}},
     "S": {
         "price": 30,
         "specials": {
-            "group_reduction": {"group": ["S", "T", "X", "Y", "Z"], "required_quantity": 3, "price": 45}
-        }
+            "group_reduction": {
+                "group": ["S", "T", "X", "Y", "Z"],
+                "required_quantity": 3,
+                "price": 45,
+            }
+        },
     },
     "T": {
         "price": 20,
         "specials": {
-            "group_reduction": {"group": ["S", "T", "X", "Y", "Z"], "required_quantity": 3, "price": 45}
-        }
+            "group_reduction": {
+                "group": ["S", "T", "X", "Y", "Z"],
+                "required_quantity": 3,
+                "price": 45,
+            }
+        },
     },
-    "U": {
-        "price": 40,
-        "specials": {
-            "offers": [{"required_quantity": 3, "item": "U"}]
-        }
-    },
+    "U": {"price": 40, "specials": {"offers": [{"required_quantity": 3, "item": "U"}]}},
     "V": {
         "price": 50,
         "specials": {
-            "reductions": [{"required_quantity": 2, "price": 90}, {"required_quantity": 3, "price": 130}]
-        }
+            "reductions": [
+                {"required_quantity": 2, "price": 90},
+                {"required_quantity": 3, "price": 130},
+            ]
+        },
     },
     "W": {
         "price": 20,
@@ -149,30 +129,44 @@ price_table = {
     "X": {
         "price": 90,
         "specials": {
-            "group_reduction": {"group": ["S", "T", "X", "Y", "Z"], "required_quantity": 3, "price": 45}
-        }
+            "group_reduction": {
+                "group": ["S", "T", "X", "Y", "Z"],
+                "required_quantity": 3,
+                "price": 45,
+            }
+        },
     },
     "Y": {
         "price": 10,
         "specials": {
-            "group_reduction": {"group": ["S", "T", "X", "Y", "Z"], "required_quantity": 3, "price": 45}
-        }
+            "group_reduction": {
+                "group": ["S", "T", "X", "Y", "Z"],
+                "required_quantity": 3,
+                "price": 45,
+            }
+        },
     },
     "Z": {
         "price": 50,
         "specials": {
-            "group_reduction": {"group": ["S", "T", "X", "Y", "Z"], "required_quantity": 3, "price": 45}
-        }
-    }
-
+            "group_reduction": {
+                "group": ["S", "T", "X", "Y", "Z"],
+                "required_quantity": 3,
+                "price": 45,
+            }
+        },
+    },
 }
+
 
 def get_reductions_total_price(count, sku):
     reductions = price_table[sku]["specials"]["reductions"]
     reductions_total_price = 0
     reduction_items_count = 0
     # reductions have to be applied in order from the most items to the least
-    sorted_reductions = sorted(reductions, key=lambda x: x["required_quantity"], reverse=True)
+    sorted_reductions = sorted(
+        reductions, key=lambda x: x["required_quantity"], reverse=True
+    )
     for reduction in sorted_reductions:
         quantity = reduction["required_quantity"]
         price = reduction["price"]
@@ -183,6 +177,7 @@ def get_reductions_total_price(count, sku):
             count -= special_count * quantity
             reductions_total_price += special_count * price
     return reductions_total_price, reduction_items_count
+
 
 def remove_offered_items(counted_skus):
     for sku, count in counted_skus.items():
@@ -207,6 +202,7 @@ def remove_offered_items(counted_skus):
             counted_skus[offer_item] = max(counted_skus[offer_item], 0)
     return counted_skus
 
+
 def index_group_reductions(counted_skus):
     group_reductions = {}
     for sku, count in counted_skus.items():
@@ -224,9 +220,24 @@ def index_group_reductions(counted_skus):
         if group_name not in group_reductions:
             required_quantity = group_reduction["required_quantity"]
             price = group_reduction["price"]
-            group_reductions[group_name] = {"required_quantity": required_quantity, "price": price, "skus": {}}
+            group_reductions[group_name] = {
+                "required_quantity": required_quantity,
+                "price": price,
+                "skus": {},
+            }
         group_reductions[group_name]["skus"][sku] = count
     return group_reductions
+
+
+def sort_skus_by_price(counted_skus):
+    skus_by_price = []
+    for sku, count in counted_skus.items():
+        if sku not in price_table:
+            continue
+        skus_by_price.append((sku, count, price_table[sku]["price"]))
+    skus_by_price.sort(key=lambda x: x[2], reverse=True)
+    return {sku: count for sku, count, _ in skus_by_price}
+
 
 def remove_group_reductions_get_price(counted_skus):
     total_price = 0
@@ -247,14 +258,20 @@ def remove_group_reductions_get_price(counted_skus):
             if items_to_remove >= count:
                 counted_skus[sku] += count
                 skus[sku] = 0
-    
+            else:
+                skus[sku] -= items_to_remove
+                items_to_remove = 0
+            counted_skus[sku] -= skus[sku]
+        total_price += (total_skus_count // required_quantity) * price
+    return total_price, counted_skus
+
 
 # CHK_2 more complex special offers
 def checkout(skus):
     if skus == "":
         return 0
     sorted_skus = sorted(skus)
-    counted_skus = {i:sorted_skus.count(i) for i in set(sorted_skus)}
+    counted_skus = {i: sorted_skus.count(i) for i in set(sorted_skus)}
     counted_skus = remove_offered_items(counted_skus)
     total, counted_skus = remove_group_reductions_get_price(counted_skus)
     for sku, count in counted_skus.items():
@@ -264,7 +281,10 @@ def checkout(skus):
         if "specials" in price_table[sku]:
             specials = price_table[sku]["specials"]
             if "reductions" in specials:
-                reductions_total_price, reduction_item_count = get_reductions_total_price(count, sku)
+                (
+                    reductions_total_price,
+                    reduction_item_count,
+                ) = get_reductions_total_price(count, sku)
                 total += reductions_total_price
                 count_after_reductions = count - reduction_item_count
         total += count_after_reductions * price_table[sku]["price"]
@@ -275,6 +295,7 @@ def test_checkout(sku, expected):
     value = checkout(sku)
     print("{} -> {}".format(sku, value))
     assert value == expected
+
 
 test_checkout("", 0)
 test_checkout("A", 50)
@@ -292,9 +313,6 @@ test_checkout("FFFFFFFF", 60)
 test_checkout("XYZX", 55)
 test_checkout("XYZYSTU", 130)
 test_checkout("XYZYSTUAAAFFF", 280)
-
-
-
 
 
 
