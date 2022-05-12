@@ -311,5 +311,3 @@ def test_checkout(sku, expected):
 # test_checkout("XYZX", 55)
 # test_checkout("XYZYSTU", 130)
 # test_checkout("XYZYSTUAAAFFF", 280)
-
-
