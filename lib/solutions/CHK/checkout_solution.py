@@ -133,7 +133,7 @@ price_table = {
         },
     },
     "Y": {
-        "price": 10,
+        "price": 20,
         "specials": {
             "group_reduction": {
                 "group": ["S", "T", "X", "Y", "Z"],
@@ -143,7 +143,7 @@ price_table = {
         },
     },
     "Z": {
-        "price": 50,
+        "price": 21,
         "specials": {
             "group_reduction": {
                 "group": ["S", "T", "X", "Y", "Z"],
@@ -311,4 +311,5 @@ def test_checkout(sku, expected):
 # test_checkout("XYZX", 55)
 # test_checkout("XYZYSTU", 130)
 # test_checkout("XYZYSTUAAAFFF", 280)
+
 
