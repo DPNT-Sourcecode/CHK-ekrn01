@@ -271,7 +271,12 @@ def checkout(skus):
     sorted_skus = sorted(skus)
     counted_skus = {i: sorted_skus.count(i) for i in set(sorted_skus)}
     counted_skus = remove_offered_items(counted_skus)
+     # find skus at 0 
+    for sku, count in counted_skus.items():
+        if count == 0:
+            print(sku)
     total, counted_skus = remove_group_reductions_get_price(counted_skus)
+   
     for sku, count in counted_skus.items():
         if sku not in price_table:
             return -1
@@ -311,3 +316,5 @@ def test_checkout(sku, expected):
 # test_checkout("XYZX", 55)
 # test_checkout("XYZYSTU", 130)
 # test_checkout("XYZYSTUAAAFFF", 280)
+test_checkout("ABCDEFGHIJKLMNOPQRSTUVW", 795)
+
