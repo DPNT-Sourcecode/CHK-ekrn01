@@ -253,18 +253,18 @@ def remove_group_reductions_get_price(counted_skus):
         items_to_remove = (total_skus_count // required_quantity) * required_quantity
         # sku's should be sorted from most expensive to least since the policy of the shop is to make the client pay the least amount
         skus = sort_skus_by_price(skus)
-        print(skus)
+        print(count)
         for sku, count in skus.items():
             if items_to_remove <= 0 or count <= 0:
                 counted_skus[sku] += skus[sku]
                 break
             if items_to_remove >= count:
-                counted_skus[sku] += count
+                counted_skus[sku] -= count
                 skus[sku] = 0
             else:
                 skus[sku] -= items_to_remove
                 items_to_remove = 0
-            counted_skus[sku] -= skus[sku]
+            counted_skus[sku] += skus[sku]
         total_price += (total_skus_count // required_quantity) * price
     print(total_price, counted_skus)
     return total_price, counted_skus
@@ -317,6 +317,7 @@ def test_checkout(sku, expected):
 test_checkout("XYZX", 55)
 # test_checkout("XYZYSTU", 130)
 # test_checkout("XYZYSTUAAAFFF", 280)
+
 
 
 
