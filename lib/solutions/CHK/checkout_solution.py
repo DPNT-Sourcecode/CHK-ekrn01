@@ -252,7 +252,7 @@ def remove_group_reductions_get_price(counted_skus):
         for sku, count in skus.items():
             if items_to_remove <= 0 or count <= 0:
                 counted_skus[sku] += skus[sku]
-                break
+                continue
             if items_to_remove >= count:
                 items_to_remove -= count
                 skus[sku] = 0
@@ -271,12 +271,8 @@ def checkout(skus):
     sorted_skus = sorted(skus)
     counted_skus = {i: sorted_skus.count(i) for i in set(sorted_skus)}
     counted_skus = remove_offered_items(counted_skus)
-     # find skus at 0 
-    for sku, count in counted_skus.items():
-        if count == 0:
-            print(sku)
     total, counted_skus = remove_group_reductions_get_price(counted_skus)
-   
+
     for sku, count in counted_skus.items():
         if sku not in price_table:
             return -1
@@ -313,8 +309,9 @@ def test_checkout(sku, expected):
 # test_checkout("FFFF", 30)
 # test_checkout("FFFFFF", 40)
 # test_checkout("FFFFFFFF", 60)
-# test_checkout("XYZX", 55)
+# test_checkout("XYZX", 62)
 # test_checkout("XYZYSTU", 130)
 # test_checkout("XYZYSTUAAAFFF", 280)
-test_checkout("ABCDEFGHIJKLMNOPQRSTUVW", 795)
+# test_checkout("ABCDEFGHIJKLMNOPQRSTUVW", 795)
+
 
